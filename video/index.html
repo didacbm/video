@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Enhancements</title>
+    <style>  
+        video {
+            display: block;
+            margin: 20px auto;
+            width: 60%;
+        }
+
+        canvas {
+            display: block;
+            margin: 20px auto;
+            border: 1px solid black;
+            filter: grayscale(100%); /* Aplica el filtro CSS para escala de grises */
+        }
+
+        #captureButton {
+            display: block;
+            margin: 20px auto;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Video Enhancements</h1>
+
+    <!-- Video Section -->
+    <video id="video" controls poster="media/poster.jpeg">
+        <source src="media/metro.mp4" type="video/mp4">
+        <track src="media/captions/metro-cat.vtt" kind="subtitles" srclang="en" label="English" default>
+    </video>
+
+    <!-- SVG Button -->
+    <button id="captureButton">
+        <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" fill="white"></rect>
+        </svg>
+    </button>
+
+    <!-- Canvas Section -->
+    <canvas id="canvas" width="640" height="360"></canvas>
+
+    <script>
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const captureButton = document.getElementById('captureButton');
+        const context = canvas.getContext('2d');
+
+        // Función para capturar el fotograma y mostrarlo en el canvas
+        captureButton.addEventListener('click', () => {
+            // Dibuja el fotograma actual del video en el canvas
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            // No es necesario modificar los píxeles directamente gracias al filtro CSS
+        });
+    </script>
+</body>
+</html>
